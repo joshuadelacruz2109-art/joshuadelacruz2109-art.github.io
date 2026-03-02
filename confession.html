@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confession</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace; /* Typewriter-like font */
+            background-color: #D2B48C; /* Coffee color (tan/beige) */
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .confession {
+            background-color: #F5F5DC; /* Old paper color for contrast */
+            padding: 20px;
+            max-width: 600px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+            position: relative;
+            margin-top: 20px;
+            border-radius: 15px; /* Rounded edges */
+        }
+        .confession::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="2" fill="%23A0522D" opacity="0.1"/></svg>') repeat; /* Subtle coffee stain effect */
+            pointer-events: none;
+            border-radius: 15px; /* Match rounded edges */
+        }
+        .poem {
+            line-height: 1.6;
+            font-size: 18px;
+            white-space: pre-wrap; /* Preserve spaces and newlines */
+        }
+        #typewriter {
+            border-right: 2px solid black; /* Blinking cursor */
+            animation: blink-caret 0.75s step-end infinite;
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent; }
+            50% { border-color: black; }
+        }
+        audio {
+            display: none; /* Hide audio controls */
+        }
+        #startBtn {
+            padding: 10px 20px;
+            font-size: 18px;
+            font-family: 'Courier New', monospace;
+            background-color: #8B4513;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0,0,0,0.5);
+            border-radius: 10px; /* Rounded edges */
+        }
+        #startBtn:hover {
+            background-color: #A0522D;
+        }
+    </style>
+</head>
+<body>
+    <!-- Start Button -->
+    <button id="startBtn">Click to Begin</button>
+
+    <div class="confession">
+        <div class="poem" id="typewriter"></div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music">
+        <source src="Le John - Naiilang (Official Music Video).mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const text = `Gusto kita,
+simple, malinaw, at totoo.
+Walang paligoy, walang palusot, iyon ang nilalaman ng puso.
+
+Ngunit habang tumatagal,
+unti-unti kong nauunawaan,
+may mga bagay na gusto natin,
+pero hindi natin maaring angkinin.
+
+Gusto kita para sa pag tingin mo sakin,
+sa mga ngiting hindi ko inaasahan,
+sa bawat sandaling masaya,
+kahit alam kong panandalian.
+
+Masakit tanggapin ang katotohanan, na di lahat ng gusto ay itinadhana ring mapasayo.
+
+Kaya pipiliin kong itago,
+ang nararamdaman ko,
+kaysa baguhin pa ang nararamdaman ko.
+
+Dahil gusto kita.
+Kaso di tayo para sa isa't isa.`;
+
+        const typewriterElement = document.getElementById('typewriter');
+        const music = document.getElementById('bg-music');
+        const startBtn = document.getElementById('startBtn');
+        let index = 0;
+
+        function typeWriter() {
+            if (index < text.length) {
+                typewriterElement.innerHTML += text.charAt(index);
+                index++;
+                setTimeout(typeWriter, 95);
+            }
+        }
+
+        // Start text + music on button click
+        startBtn.addEventListener("click", function() {
+            typeWriter();
+            music.play();
+            startBtn.style.display = "none"; // Hide button after click
+        });
+    </script>
+</body>
+</html>
